@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+					   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:local="clr-namespace:MyContacts;assembly=MyContacts"
+					   x:Class="MyContacts.ContactAdd"
+                       Title="Add Contact"
+                       Padding="0,20">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:GenderToIndexConverter x:Key="genderCvt" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    
+    <ScrollView>
+        <StackLayout Spacing="10">
+            <StackLayout.Padding>
+                <OnPlatform x:TypeArguments="Thickness" iOS="5,20,5,5" Android="5,0,5,5" WinPhone="5,0,5,5" />
+            </StackLayout.Padding>
+
+            <Label Text="FirstName" FontAttributes="Bold" />
+            <Entry x:Name="firstName" Placeholder="Enter firstname" />
+
+            <Label Text="LastName" FontAttributes="Bold" />
+            <Entry x:Name="lastName" Placeholder="Enter lastname" />
+
+            <Label Text="Phone number" FontAttributes="Bold" />
+            <Entry x:Name="phone" Keyboard="Telephone" Placeholder="Enter phone" />
+            
+            <Label Text="Email" FontAttributes="Bold" />
+            <Entry x:Name="email" Keyboard="Email" Placeholder="Enter email" />
+
+            <Label Text="Birthday" FontAttributes="Bold" />
+            <DatePicker x:Name="birthday"/>
+
+            <Label Text="Gender" FontAttributes="Bold" />
+            <Picker x:Name="genderPicker" SelectedIndex="{Binding Gender, Mode=TwoWay, Converter={StaticResource genderCvt}}">
+                <Picker.Items>
+                    <x:String>Male</x:String>
+                    <x:String>Female</x:String>
+                </Picker.Items>
+            </Picker>
+
+            <Label Text="Favorite" FontAttributes="Bold" />
+            <Switch x:Name="favorite" IsToggled="False" />
+
+            <Button Text="Add Person" 
+            Clicked="OnNewButtonClicked" />
+
+            <Label x:Name="statusMessage" />
+
+            <!--
+            <Button Text="Delete All People"
+            Clicked="OnDeleteButtonClicked" />
+            -->
+            
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

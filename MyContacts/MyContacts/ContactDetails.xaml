@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:MyContacts;assembly=MyContacts"
+             Title="Contact Details"
+			 x:Class="MyContacts.ContactDetails">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:GenderToIndexConverter x:Key="genderCvt" />
+            <local:ImageResourceConverter x:Key="imageResourceCvt" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+	<ScrollView>
+		<StackLayout Spacing="10">
+			<StackLayout.Padding>
+				<OnPlatform x:TypeArguments="Thickness" iOS="5,20,5,5" Android="5,0,5,5" WinPhone="5,0,5,5" />
+			</StackLayout.Padding>
+
+            <Image HeightRequest="100" Aspect="AspectFit" Source="ic_people_black_24dp"/>
+
+			<Label Text="First Name" FontAttributes="Bold" />
+            <Entry x:Name="firstName" Text="{Binding FirstName}" />
+
+            <Label Text="Last Name" FontAttributes="Bold" />
+            <Entry x:Name="lastName" Text="{Binding LastName}" />
+
+            <Label Text="Phone" FontAttributes="Bold" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="60" />
+                    <ColumnDefinition Width="60" />
+                </Grid.ColumnDefinitions>
+
+                <Entry x:Name="phone" Keyboard="Telephone" Text="{Binding Phone}" Grid.Column="0" />
+                <Button Image="ic_call_black_24dp" Clicked="OnCallButtonClicked" Grid.Column="1"/>
+                <Button Image="ic_sms_black_24dp" Clicked="OnSmsButtonClicked" Grid.Column="2"/>
+            </Grid>
+            
+            <Label Text="Email" FontAttributes="Bold" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="60" />
+                </Grid.ColumnDefinitions>
+                <Entry x:Name="email" Keyboard="Email" Text="{Binding Email}" Grid.Column="0"/>
+                <Button Image="ic_email_black_24dp" Clicked="OnEmailButtonClicked" Grid.Column="1"/>
+            </Grid>
+            
+			<Label Text="Gender" FontAttributes="Bold" />
+            <Picker x:Name="genderPicker" SelectedIndex="{Binding Gender}">
+                <Picker.Items>
+                    <x:String>Male</x:String>
+                    <x:String>Female</x:String>
+                </Picker.Items>
+            </Picker>
+
+			<Label Text="Birthday" FontAttributes="Bold" />
+            <DatePicker x:Name="birthday" Date="{Binding Birthday}" />
+
+			<Label Text="Favorite" FontAttributes="Bold" />
+            <Switch x:Name="favorite" IsToggled="{Binding Favorite}" />
+
+            <Grid>
+                <Button Text="Modification"
+                        Clicked="OnModifButtonClicked"
+                        Grid.Column="0"/>
+
+                <Button Text="Delete"
+                        Clicked="OnDeleteButtonClicked"
+                        Grid.Column="1"/>
+            </Grid>
+            
+            <Label x:Name="statusMessage" />
+        </StackLayout>
+	</ScrollView>
+</ContentPage>

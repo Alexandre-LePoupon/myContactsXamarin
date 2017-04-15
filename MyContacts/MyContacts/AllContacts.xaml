@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:MyContacts;assembly=MyContacts"
+             x:Class="MyContacts.AllContacts"
+             Title="Contacts"
+             Padding="5,0,5,5">
+
+    <ContentPage.Resources>
+      <ResourceDictionary>
+        <local:ImageResourceConverter x:Key="imageResourceCvt" />
+        <local:BirthdayConverter x:Key="birthdayCvt" />
+      </ResourceDictionary>
+    </ContentPage.Resources>
+  
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="addButton" Text="Add" Clicked="OnAdd" />
+        <ToolbarItem x:Name="filterButton" Text="Filter" Clicked="OnFilter" />
+    </ContentPage.ToolbarItems>
+
+
+    <Label x:Name="statusMessage" />
+
+    <ListView x:Name="contactList"
+              HasUnevenRows="True"
+              ItemTapped="OnItemTapped"
+              IsPullToRefreshEnabled="True"
+              Refreshing="OnRefreshing">
+
+        <ListView.Header>
+            <ContentView Padding="0,5" BackgroundColor="#3498db">
+                <Label FontSize="Large" TextColor="White"
+                   Text="Contact List" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+            </ContentView>
+        </ListView.Header>
+
+        <ListView.FooterTemplate>
+            <DataTemplate>
+                <ContentView Padding="0,5">
+                    <Label FontSize="Micro"
+                       Text="Footer" 
+                       VerticalTextAlignment="Center" HorizontalTextAlignment="End" />
+                </ContentView>
+            </DataTemplate>
+        </ListView.FooterTemplate>
+
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell Height="80">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="75" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="10" />
+                        </Grid.ColumnDefinitions>
+
+                        <BoxView BackgroundColor="White" />
+
+                        <Image WidthRequest="75" Aspect="AspectFit" Source="ic_people_black_24dp"/>
+
+                        <StackLayout Grid.Column="1" VerticalOptions="Center">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="0" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Label Text="{Binding FirstName}" FontSize="Medium" FontAttributes="Bold" Grid.Column="0"/>
+                                <Label Text="{Binding LastName}" FontSize="Medium" FontAttributes="Bold" Grid.Column="2"/>
+                            </Grid>
+                            <Label Text="{Binding Phone}" FontSize="Small" TextColor="Accent" />
+                        </StackLayout>
+
+
+                        <Image IsVisible="{Binding Favorite}" Grid.Column="2"
+                        VerticalOptions="Center"
+                        HorizontalOptions="End" Source="star.png" />
+
+                    </Grid>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+
+
+    </ListView>
+    
+</ContentPage>
